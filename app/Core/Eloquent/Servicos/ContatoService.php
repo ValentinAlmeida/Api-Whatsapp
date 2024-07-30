@@ -5,6 +5,8 @@ namespace App\Core\Eloquent\Servicos;
 use App\Core\Contratos\Servicos\ContatoService as Contrato;
 use App\Core\Contratos\Repositorios\ContatoRepositorio as Repositorio;
 use App\Core\DTO\CadastrarContatoDTO as CadastrarDTO;
+use App\Core\Entidades\Contato as Entidade;
+use App\Core\Filtros\ContatoFiltro as Filtro;
 use App\Core\Negocios\Contato as Negocio;
 use Carbon\Carbon;
 
@@ -26,5 +28,17 @@ class ContatoService implements Contrato
             $entidade->telefone(),
             Carbon::create($entidade->dataRecuperacao())
         );
+    }
+
+    public function buscar(Filtro $dados): array
+    {
+        $entidades = $this->repositorio->buscar($dados);
+
+        return array_map(fn(Entidade $entidade) => new Negocio(
+            intval($entidade->getIdentificador()->valor()),
+            $entidade->nome(),
+            $entidade->telefone(),
+            Carbon::create($entidade->dataRecuperacao())
+        ), $entidades);
     }
 }

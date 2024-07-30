@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('contatos', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->nullable();
-            $table->bigInteger('telefone')->nullable();
+            $table->bigInteger('telefone')->nullable()->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
