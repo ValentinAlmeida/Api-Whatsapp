@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\WhatsappController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/autenticar', [AutenticacaoController::class, 'autenticar']);
+
+Route::get('/whatsapp', [WhatsappController::class, 'index']);
 
 Route::middleware('auth.refact')->group(function () {
     Route::get('/example', function () {

@@ -17,7 +17,7 @@ restart: stop start
 	@echo "Containers reiniciados com sucesso."
 
 server:
-	docker exec -d api bash -c "php artisan serve --host 0.0.0.0 --port=7000"
+	docker exec -d api bash -c "php artisan serve --host 0.0.0.0 --port=6000"
 	docker exec -d api bash -c "npm run dev -- --host"
 
 migrate:
@@ -31,3 +31,6 @@ cache:
 
 key:
 	docker exec api bash -c "php artisan key:generate"
+
+fresh:
+	docker exec api bash -c "php artisan migrate:fresh"
