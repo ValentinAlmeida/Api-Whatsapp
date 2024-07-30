@@ -2,12 +2,12 @@
 
 > Crie uma network para o banco de dados:
 ```
-docker network create --subnet 10.0.0.0/17 apinetwork
+docker network create --subnet 10.2.0.0/16 apinetwork
 ```
 
 > Crie o container do mysql:
 ```
-docker run --name mysql --network=apinetwork --ip=10.0.0.3 -e MYSQL_ROOT_PASSWORD=root -d mysql
+docker run --name mysql --network=apinetwork --ip=10.2.0.3 -e MYSQL_ROOT_PASSWORD=root -d mysql
 ```
 
 > Faça a imagme do projeto
@@ -39,4 +39,4 @@ docker exec -d api bash -c "php artisan db:seed"
 
 > url local para o projeto http://0.0.0.0:6000/
 
-> 💻 OBS: Configure o env colocando no host do banco o ip 10.0.0.3 no banco de dados
+> 💻 OBS: Configure o env colocando no host do banco o ip 10.2.0.3 no banco de dados
