@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('webhook')->nullable();
             $table->string('type')->nullable();
+            $table->string('hub_challenge')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

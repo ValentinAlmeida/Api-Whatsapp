@@ -6,7 +6,7 @@ use App\Core\Contratos\Servicos\ContatoService as Contrato;
 use App\Core\Contratos\Repositorios\ContatoRepositorio as Repositorio;
 use App\Core\DTO\CadastrarContatoDTO as CadastrarDTO;
 use App\Core\Entidades\Contato as Entidade;
-use App\Core\Filtros\ContatoFiltro as Filtro;
+use App\Core\Filtros\ContatoFiltros as Filtro;
 use App\Core\Negocios\Contato as Negocio;
 use Carbon\Carbon;
 

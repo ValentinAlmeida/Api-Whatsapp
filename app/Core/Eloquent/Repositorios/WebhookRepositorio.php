@@ -14,6 +14,7 @@ class WebhookRepositorio implements Contrato
         $entidade = Model::create([
             Model::WEBHOOK => $dados->webhook,
             Model::TYPE => $dados->type,
+            Model::HUB_CHALLENGE => $dados->hub_challenge,
         ]);
 
         return Entidade::build(
@@ -21,6 +22,7 @@ class WebhookRepositorio implements Contrato
             $entidade->webhook,
             $entidade->type,
             $entidade->created_at,
+            $entidade->hub_challenge,
         );
     }
 }

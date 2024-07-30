@@ -11,6 +11,7 @@ class Webhook
         public readonly ?string $webhook,
         public readonly ?string $type,
         public ?DateTimeInterface $data_cadastro,
+        public ?string $hub_challenge = null,
     )
     {
     }

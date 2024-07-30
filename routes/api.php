@@ -19,6 +19,8 @@ Route::post('/autenticar', [AutenticacaoController::class, 'autenticar']);
 Route::get('/whatsapp', [WebhookController::class, 'cadastrar']);
 Route::post('/whatsapp', [WebhookController::class, 'cadastrar']);
 
+Route::get('/contato', [WebhookController::class, 'buscarContato']);
+
 Route::middleware('auth.refact')->group(function () {
     Route::get('/example', function () {
         return response()->json(['message' => 'This is an example API route']);

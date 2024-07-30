@@ -6,24 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Webhook extends Model
+class Mensagem extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'webhooks';
+    protected $table = 'mensagem';
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
     const DELETED_AT = 'deleted_at';
 
-    const WEBHOOK = 'webhook';
-    const TYPE = 'type';
-    const HUB_CHALLENGE = 'hub_challenge';
+    const TELEFONE = 'telefone';
+    const MENSAGEM = 'mensagem';
+    const TIPO = 'tipo';
+    const CONTATO_ID = 'contato_id';
+    const DATA_ENVIO = 'data_envio';
 
     protected $fillable = [
-        self::WEBHOOK,
-        self::TYPE,
-        self::HUB_CHALLENGE,
+        self::TELEFONE,
+        self::MENSAGEM,
+        self::TIPO,
+        self::CONTATO_ID,
+        self::DATA_ENVIO,
     ];
 }

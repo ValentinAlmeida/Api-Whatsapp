@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Core\DTO\CadastrarContatoDTO;
+use App\Core\DTO\CadastrarMensagemDTO;
 use App\Core\DTO\CadastrarWebhookDTO as CadastrarDTO;
 
 class CadastrarWebhookRequisicao extends ApiRequisicao
@@ -10,7 +11,8 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            "webhook" => 'sometimes|string'
+            "webhook" => 'sometimes|string',
+            "hub_challenge" => 'sometimes|string'
         ];
     }
 
@@ -18,7 +20,8 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
     {
         return new CadastrarDTO(
             json_encode($this->all()),
-            $this->getMethod()
+            $this->getMethod(),
+            $this->input("hub_challenge"),
         );
     }
 
@@ -32,6 +35,32 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
         return new CadastrarContatoDTO(
             $nome,
             $waId
+        );
+    }
+
+    public function getDataMensage(): CadastrarMensagemDTO
+    {
+        $data = $this->all();
+        $message = $data['entry'][0]['changes'][0]['value']['messages'][0] ?? null;
+    
+        if ($message) {
+            $telefone = $message['from'] ?? null;
+            $mensagem = $message['text']['body'] ?? null;
+            $tipo = $message['type'] ?? null;
+            $contato_id = $data['entry'][0]['changes'][0]['value']['contacts'][0]['wa_id'] ?? null;
+            $timestamp = $message['timestamp'] ?? null;
+            $data_envio = $timestamp ? (new \DateTime())->setTimestamp((int)$timestamp) : null;
+        } else {
+            $telefone = $mensagem = $tipo = $contato_id = null;
+            $data_envio = null;
+        }
+    
+        return new CadastrarMensagemDTO(
+            $telefone,
+            $mensagem,
+            $tipo,
+            $contato_id,
+            $data_envio
         );
     }
 }

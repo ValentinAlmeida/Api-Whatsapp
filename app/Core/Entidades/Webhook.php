@@ -10,6 +10,8 @@ class Webhook extends Entidade
 {
     public ?string $webhook;
 
+    public ?string $hub_challenge = null;
+
     public ?string $type;
 
     public ?DateTimeInterface $data_recuperacao;
@@ -18,12 +20,14 @@ class Webhook extends Entidade
         int $id,
         ?string $webhook,
         ?string $type,
-        ?DateTimeInterface $data_recuperacao
+        ?DateTimeInterface $data_recuperacao,
+        ?string $hub_challenge = null,
     ) {
         $instance = new static(new Identificador($id));
         $instance->webhook = $webhook;
         $instance->type = $type;
         $instance->data_recuperacao = $data_recuperacao;
+        $instance->hub_challenge = $hub_challenge;
 
         return $instance;
     }
@@ -40,5 +44,10 @@ class Webhook extends Entidade
     public function dataRecuperacao(): ?DateTimeInterface
     {
         return $this->data_recuperacao;
+    }
+
+    public function hubChallenge(): ?string
+    {
+        return $this->hub_challenge;
     }
 }

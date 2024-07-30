@@ -5,7 +5,7 @@ namespace App\Core\Eloquent\Repositorios;
 use App\Core\Contratos\Repositorios\ContatoRepositorio as Contrato;
 use App\Core\DTO\CadastrarContatoDTO as CadastrarDTO;
 use App\Core\Entidades\Contato as Entidade;
-use App\Core\Filtros\ContatoFiltro as Filtro;
+use App\Core\Filtros\ContatoFiltros as Filtro;
 use App\Models\Contato as Model;
 
 class ContatoRepositorio implements Contrato

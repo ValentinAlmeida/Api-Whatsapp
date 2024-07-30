@@ -2,9 +2,7 @@
 
 namespace App\Core\Filtros;
 
-use DateTimeInterface;
-
-class ContatoFiltro extends Filtro
+class ContatoFiltros extends Filtro
 {
     public ?string $nome;
     public ?int $telefone;

@@ -25,7 +25,8 @@ class WebhookService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->webhook(),
             $entidade->type(),
-            Carbon::create($entidade->dataRecuperacao())
+            Carbon::create($entidade->dataRecuperacao()),
+            $entidade->hubChallenge(),
         );
     }
 }
