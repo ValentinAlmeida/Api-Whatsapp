@@ -2,15 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Core\DTO\CadastrarContatoDTO;
 use App\Core\DTO\CadastrarWebhookDTO as CadastrarDTO;
 
 class CadastrarWebhookRequisicao extends ApiRequisicao
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
@@ -23,6 +19,19 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
         return new CadastrarDTO(
             json_encode($this->all()),
             $this->getMethod()
+        );
+    }
+
+    public function getDataContact(): CadastrarContatoDTO
+    {
+        $data = $this->all();
+
+        $nome = $data['entry'][0]['changes'][0]['value']['contacts'][0]['profile']['name'] ?? null;
+        $waId = $data['entry'][0]['changes'][0]['value']['contacts'][0]['wa_id'] ?? null;
+
+        return new CadastrarContatoDTO(
+            $nome,
+            $waId
         );
     }
 }
