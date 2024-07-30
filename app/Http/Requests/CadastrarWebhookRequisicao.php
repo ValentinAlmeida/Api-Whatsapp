@@ -14,16 +14,15 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            "webhook" => 'sometimes|string',
-            "type" => 'sometimes|string',
+            "webhook" => 'sometimes|string'
         ];
     }
 
     public function getData(): CadastrarDTO
     {
         return new CadastrarDTO(
-            $this->input('webhook'),
-            $this->input('type')
+            json_encode($this->all()),
+            $this->getMethod()
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Core\Contratos\Servicos\WebhookService;
+use App\Core\DTO\CadastrarWebhookDTO;
 use App\Http\Requests\CadastrarWebhookRequisicao;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,7 +17,8 @@ class WebhookController extends Controller
     public function cadastrar(CadastrarWebhookRequisicao $request)
     {
         $webhookService = App::make(WebhookService::class);
+        $entidade = $webhookService->cadastrar($request->getData());
 
-        return response(Serializer::parseEntidade($webhookService->cadastrar($request->getData())));
+        return response(Serializer::parseEntidade($entidade));
     }
 }

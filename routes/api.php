@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/autenticar', [AutenticacaoController::class, 'autenticar']);
 
 Route::get('/whatsapp', [WebhookController::class, 'cadastrar']);
+Route::post('/whatsapp', [WebhookController::class, 'cadastrar']);
 
 Route::middleware('auth.refact')->group(function () {
     Route::get('/example', function () {

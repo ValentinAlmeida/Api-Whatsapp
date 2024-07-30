@@ -8,16 +8,16 @@ use DateTimeInterface;
 
 class Webhook extends Entidade
 {
-    public string $webhook;
+    public ?string $webhook;
 
-    public string $type;
+    public ?string $type;
 
     public ?DateTimeInterface $data_recuperacao;
 
     public static function build(
         int $id,
-        string $webhook,
-        string $type,
+        ?string $webhook,
+        ?string $type,
         ?DateTimeInterface $data_recuperacao
     ) {
         $instance = new static(new Identificador($id));
@@ -28,11 +28,11 @@ class Webhook extends Entidade
         return $instance;
     }
 
-    public function webhook(): string
+    public function webhook(): ?string
     {
         return $this->webhook;
     }
-    public function type(): string
+    public function type(): ?string
     {
         return $this->type;
     }
