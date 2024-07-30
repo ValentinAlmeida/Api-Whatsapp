@@ -7,6 +7,6 @@ use DateTimeInterface;
 class ContatoFiltro extends Filtro
 {
     public ?string $nome;
-
     public ?int $telefone;
+    public ?int $id;
 }

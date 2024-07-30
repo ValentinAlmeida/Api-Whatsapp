@@ -37,6 +37,10 @@ class ContatoRepositorio implements Contrato
             $query->where('telefone', $filtro->telefone);
         }
 
+        if (!empty($filtro->id)) {
+            $query->where('id', $filtro->id);
+        }
+
         $entidades = $query->get();
 
         return $entidades->map(function ($entidade) {
