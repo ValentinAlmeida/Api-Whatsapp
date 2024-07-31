@@ -29,12 +29,6 @@ class WebhookController extends Controller
             $request->getDataMensage()
         );
 
-        return response(Serializer::parseEntidade($entidade));
-    }
-
-    public function buscarContato(BuscarContatoRequisicao $request)
-    {
-        $contatoService = App::make(ContatoService::class);
-        return $contatoService->buscar($request->getData());
+        return $entidade->hub_challenge;
     }
 }
