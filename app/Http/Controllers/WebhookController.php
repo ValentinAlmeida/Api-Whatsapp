@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Core\Contratos\Servicos\ContatoService;
-use App\Core\Contratos\Servicos\MensagemService;
 use App\Core\Contratos\Servicos\WebhookService;
 use App\Http\Requests\BuscarContatoRequisicao;
 use App\Http\Requests\CadastrarWebhookRequisicao;
@@ -16,19 +15,21 @@ class WebhookController extends Controller
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    public function __construct(
+        private readonly WebhookService $service
+    )
+    {
+    }
+
     public function cadastrar(CadastrarWebhookRequisicao $request)
     {
-        $webhookService = App::make(WebhookService::class);
+        $entidade = $this->service->cadastrar(
+            $request->getData(),
+            $request->getDataContact(),
+            $request->getDataMensage()
+        );
 
-        $entidade = $webhookService->cadastrar($request->getData());
-
-        $contatoService = App::make(ContatoService::class);
-        $contato = $contatoService->cadastrar($request->getDataContact());
-
-        $mensagemService = App::make(MensagemService::class);
-        $mensagem = $mensagemService->cadastrar($request->getDataMensage());
-
-        return response(Serializer::parseEntidade($entidade, $contato, $mensagem));
+        return response(Serializer::parseEntidade($entidade));
     }
 
     public function buscarContato(BuscarContatoRequisicao $request)
