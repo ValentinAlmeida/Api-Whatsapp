@@ -17,9 +17,9 @@ class MensagemService implements Contrato
     {
     }
 
-    public function cadastrar(CadastrarDTO $dados): Negocio
+    public function cadastrar(CadastrarDTO $dados, int $contatoId): Negocio
     {
-        $entidade = $this->repositorio->criar($dados);
+        $entidade = $this->repositorio->criar($dados, $contatoId);
 
         return new Negocio(
             intval($entidade->getIdentificador()->valor()),

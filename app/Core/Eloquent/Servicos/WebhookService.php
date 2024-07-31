@@ -27,10 +27,10 @@ class WebhookService implements Contrato
         $entidade = $this->repositorio->criar($dados);
 
         $contatoService = App::make(ContatoService::class);
-        $contatoService->cadastrar($contatoDTO);
+        $contato = $contatoService->cadastrar($contatoDTO);
 
         $mensagemService = App::make(MensagemService::class);
-        $mensagemService->cadastrar($mensagemDTO);
+        $mensagemService->cadastrar($mensagemDTO, $contato->id);
 
         return new Negocio(
             intval($entidade->getIdentificador()->valor()),

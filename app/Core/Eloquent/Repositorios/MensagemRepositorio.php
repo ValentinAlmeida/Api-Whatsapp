@@ -12,21 +12,25 @@ use Illuminate\Support\Facades\App;
 
 class MensagemRepositorio implements Contrato
 {
-    public function criar(CadastrarDTO $dados): Entidade
+    public function criar(CadastrarDTO $dados, int $contatoId): Entidade
     {
         $entidade = Model::create([
             Model::TELEFONE => $dados->telefone,
             Model::MENSAGEM => $dados->mensagem,
             Model::TIPO => $dados->tipo,
+            Model::CONTATO_ID => $contatoId,
             Model::DATA_ENVIO => $dados->data_envio,
         ]);
+
+        $contatoService = App::make(ContatoService::class);
+        $contato = $contatoService->encontrarPorId($entidade->contato_id);
 
         return Entidade::build(
             $entidade->id,
             $entidade->telefone,
             $entidade->mensagem,
             $entidade->tipo,
-            null,
+            $contato,
             $entidade->created_at,
             $entidade->data_envio,
         );

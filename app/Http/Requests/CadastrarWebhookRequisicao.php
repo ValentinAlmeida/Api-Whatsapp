@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Core\Contratos\Servicos\ContatoService;
 use App\Core\DTO\CadastrarContatoDTO;
 use App\Core\DTO\CadastrarMensagemDTO;
 use App\Core\DTO\CadastrarWebhookDTO as CadastrarDTO;
+use App\Core\Filtros\ContatoFiltros;
+use Illuminate\Support\Facades\App;
 
 class CadastrarWebhookRequisicao extends ApiRequisicao
 {
@@ -47,11 +50,10 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
             $telefone = $message['from'] ?? null;
             $mensagem = $message['text']['body'] ?? null;
             $tipo = $message['type'] ?? null;
-            $contato_id = $data['entry'][0]['changes'][0]['value']['contacts'][0]['wa_id'] ?? null;
             $timestamp = $message['timestamp'] ?? null;
             $data_envio = $timestamp ? (new \DateTime())->setTimestamp((int)$timestamp) : null;
         } else {
-            $telefone = $mensagem = $tipo = $contato_id = null;
+            $telefone = $mensagem = $tipo = null;
             $data_envio = null;
         }
     
@@ -59,7 +61,6 @@ class CadastrarWebhookRequisicao extends ApiRequisicao
             $telefone,
             $mensagem,
             $tipo,
-            $contato_id,
             $data_envio
         );
     }
