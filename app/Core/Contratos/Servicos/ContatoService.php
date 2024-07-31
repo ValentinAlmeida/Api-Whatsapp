@@ -9,6 +9,8 @@ use App\Core\Negocios\Contato as Negocio;
 interface ContatoService
 {
     public function cadastrar(CadastrarDTO $dados): Negocio;
+    
+    public function encontrarPorId(int $id): Negocio;
 
     public function buscar(Filtro $dados): array;
 }

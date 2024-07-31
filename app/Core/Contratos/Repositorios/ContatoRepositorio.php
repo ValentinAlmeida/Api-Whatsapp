@@ -10,5 +10,7 @@ interface ContatoRepositorio
 {
     public function criar(CadastrarDTO $dados): Entidade;
 
+    public function encontrarPorId(int $id): Entidade;
+
     public function buscar(Filtro $filtro): array;
 }

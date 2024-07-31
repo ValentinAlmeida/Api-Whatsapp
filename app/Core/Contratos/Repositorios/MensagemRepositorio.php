@@ -8,4 +8,6 @@ use App\Core\Entidades\Mensagem as Entidade;
 interface MensagemRepositorio
 {
     public function criar(CadastrarDTO $dados): Entidade;
+
+    public function encontrarPorId(int $id): Entidade;
 }

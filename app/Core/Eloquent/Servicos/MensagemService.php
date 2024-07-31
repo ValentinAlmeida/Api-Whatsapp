@@ -31,4 +31,19 @@ class MensagemService implements Contrato
             Carbon::create($entidade->dataEnvio())
         );
     }
+
+    public function encontrarPorId(int $id): Negocio
+    {
+        $entidade = $this->repositorio->encontrarPorId($id);
+
+        return new Negocio(
+            intval($entidade->getIdentificador()->valor()),
+            $entidade->telefone(),
+            $entidade->mensagem(),
+            $entidade->tipo(),
+            $entidade->contato(),
+            Carbon::create($entidade->dataRecuperacao()),
+            Carbon::create($entidade->dataEnvio())
+        );
+    }
 }

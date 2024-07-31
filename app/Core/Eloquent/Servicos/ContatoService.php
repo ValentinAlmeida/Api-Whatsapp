@@ -41,4 +41,16 @@ class ContatoService implements Contrato
             Carbon::create($entidade->dataRecuperacao())
         ), $entidades);
     }
+
+    public function encontrarPorId(int $id): Negocio
+    {
+        $entidade = $this->repositorio->encontrarPorId($id);
+
+        return new Negocio(
+            intval($entidade->getIdentificador()->valor()),
+            $entidade->nome(),
+            $entidade->telefone(),
+            Carbon::create($entidade->dataRecuperacao())
+        );
+    }
 }
