@@ -14,7 +14,7 @@ class CadastrarContatoRequisicao extends ApiRequisicao
         ];
     }
 
-    public function getDataContact(): CadastrarDTO
+    public function getData(): CadastrarDTO
     {
         return new CadastrarDTO(
             $this->input("nome"),
