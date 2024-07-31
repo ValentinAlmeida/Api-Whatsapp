@@ -31,7 +31,7 @@ class ContatoRepositorio implements Contrato
         $query = Model::query();
 
         if (!empty($filtro->nome)) {
-            $query->where('nome', $filtro->nome);
+            $query->whereRaw('nome LIKE ?', ["%{$filtro->nome}%"]);
         }
 
         if (!empty($filtro->telefone)) {
