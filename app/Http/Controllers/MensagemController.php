@@ -6,6 +6,8 @@ use App\Core\Contratos\Servicos\MensagemService as Service;
 use App\Core\Negocios\Mensagem as Negocio;
 use App\Http\Requests\BuscarMensagemRequisicao as BuscarRequisicao;
 use App\Http\Requests\CadastrarMensagemRequisicao as CadastrarRequisicao;
+use App\Http\Requests\EnviarMensagemRequisicao;
+use App\Infra\Mensagem\EnvioMensagem;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Support\Serializers\MensagemSerializer as Serializer;
@@ -36,5 +38,11 @@ class MensagemController extends Controller
     public function consultarPorId(int $id)
     {
         return response(Serializer::parseEntidade($this->service->encontrarPorId($id)));
+    }
+
+    public function enviarMensagem(EnviarMensagemRequisicao $request)
+    {
+        $envioMensagem = new EnvioMensagem();
+        return $envioMensagem->enviarMensagem($request->getData());
     }
 }

@@ -29,6 +29,7 @@ Route::prefix('/contato')->group(function () {
 
 Route::prefix('/mensagem')->group(function () {
     Route::get('/', [MensagemController::class, 'buscar']);
+    Route::post('/enviar', [MensagemController::class, 'enviarMensagem']);
     Route::get('/{mensagemId}', [MensagemController::class, 'consultarPorId']);
     Route::post('/{contatoId}', [MensagemController::class, 'cadastrar']);
 });
