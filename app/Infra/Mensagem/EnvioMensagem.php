@@ -44,4 +44,16 @@ class EnvioMensagem
     
         return $response->json();
     }
+
+    public function enviarVariasMensagens(array $dados): array
+    {
+        $retorno = [];
+
+        foreach($dados as $dado)
+        {
+            $retorno[] = $this->enviarMensagem($dado);
+        }
+
+        return $retorno;
+    }
 }

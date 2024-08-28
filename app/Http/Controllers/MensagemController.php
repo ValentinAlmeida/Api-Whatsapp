@@ -7,6 +7,7 @@ use App\Core\Negocios\Mensagem as Negocio;
 use App\Http\Requests\BuscarMensagemRequisicao as BuscarRequisicao;
 use App\Http\Requests\CadastrarMensagemRequisicao as CadastrarRequisicao;
 use App\Http\Requests\EnviarMensagemRequisicao;
+use App\Http\Requests\EnviarVariasMensagemRequisicao;
 use App\Infra\Mensagem\EnvioMensagem;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -44,5 +45,11 @@ class MensagemController extends Controller
     {
         $envioMensagem = new EnvioMensagem();
         return $envioMensagem->enviarMensagem($request->getData());
+    }
+
+    public function multiplasMensagens(EnviarVariasMensagemRequisicao $request)
+    {
+        $envioMensagem = new EnvioMensagem();
+        return $envioMensagem->enviarVariasMensagens($request->getData());
     }
 }
