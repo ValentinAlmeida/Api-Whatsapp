@@ -4,6 +4,7 @@ namespace App\Infra\Mensagem;
 
 use App\Core\DTO\EnviarMensagemDTO;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Queue;
 
 class EnvioMensagem
 {
@@ -48,12 +49,13 @@ class EnvioMensagem
     public function enviarVariasMensagens(array $dados): array
     {
         $retorno = [];
-
-        foreach($dados as $dado)
-        {
-            $retorno[] = $this->enviarMensagem($dado);
+    
+        foreach ($dados as $dado) {
+            Queue::push(function() use ($dado) {
+                $this->enviarMensagem($dado);
+            });
         }
-
+    
         return $retorno;
     }
 }
