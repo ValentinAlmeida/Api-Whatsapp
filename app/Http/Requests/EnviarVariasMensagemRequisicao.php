@@ -9,9 +9,6 @@ class EnviarVariasMensagemRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            '*.nome' => 'required|string',
-            '*.cnpj' => 'required|string',
-            '*.telefone' => 'required|integer',
         ];
     }
 
@@ -19,9 +16,9 @@ class EnviarVariasMensagemRequisicao extends ApiRequisicao
     {
         return array_map(function ($item) {
             return new CadastrarDTO(
-                $item['telefone'],
-                $item['nome'],
-                $item['cnpj']
+                $item['Telefone'] ?? null,
+                $item['Nome\/Razão Social'] ?? $item['Razão Social'] ?? 'Prezado Cliente',
+                $item['CPF\/CNPJ'] ?? 'Não encontrado'
             );
         }, $this->all());
     }
