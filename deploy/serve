@@ -1,0 +1,14 @@
+#!/bin/bash
+
+php artisan queue:work &
+
+apache2ctl -D FOREGROUND
+
+while [ true ]
+
+do
+
+php artisan schedule:run --verbose --no-interaction &
+sleep 60
+
+done

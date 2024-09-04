@@ -1,10 +1,20 @@
-# Use a imagem oficial do PHP com Apache
 FROM php:8.2-apache
 
-# Instale as extensões necessárias do PHP
+LABEL authors="valentinfalmeida@hotmail.com"
+
+ENV APP_KEY=base64:pZmRHnzKMWOXTeIFbcWVY/2vsGcNhUKg0KlYjHJZfOM=
+ENV JWT_SECRET=pZmRHnzKMWOXTeIFbcWVY/2vsGcNhUKg0KlYjHJZfOM
+ENV DB_CONNECTION=pgsql
+ENV QUEUE_CONNECTION=database
+ENV WA_ID="363037383565948"
+ENV VERSION="v20.0"
+ENV TOKEN="EAAHj4khcGaIBO3RYpnhpkMZBd7ZAXvrkD3JZBoF0WrHQZA1Fp2pgANTNiHbNmGQ38FaBoWXASjY5wLQIffTCpekoweBXZAuLwyoyaRJQsSVSgcvNOSBg4pPNJZBtpTaG1ih2ZCI2WhKWNJYMX341q9DeuRQHirGicu8LT9ZBZAPXiZCvWLaZCL31x8JXcSz4U4kiZCzjyAZDZD"
+
+RUN a2dissite 000-default.conf
+RUN a2enmod rewrite
+
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Instale as dependências necessárias
 RUN apt-get update && apt-get install -y \
     zip \
     unzip \
@@ -13,29 +23,27 @@ RUN apt-get update && apt-get install -y \
     npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Instale o Composer
 RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
     && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer
 
-# Defina o diretório de trabalho no container
 WORKDIR /app
 
-# Copie tudo para o diretório de trabalho (app) no container
 COPY . /app
 
-# Instale todas as bibliotecas PHP
+ADD ./deploy/serve .
+
 RUN composer install
 
-# Instale as dependências do frontend (Node.js e npm)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest
 
-# Instale o Vue.js globalmente usando npm
 RUN npm install -g @vue/cli
 
-# Dê permissões necessárias
-RUN chmod 777 -R storage public vendor
+RUN chmod 777 -R storage public vendor serve
 
-# Exponha as portas que serão utilizadas
+COPY ./deploy/default.conf /etc/apache2/sites-available
+
+RUN a2ensite default.conf
+
 EXPOSE 6000 5172
