@@ -2,15 +2,12 @@
 
 start:
 	docker stop api-whatsapp
-	docker stop mysql
 	docker start api-whatsapp
-	docker start mysql
 	make server
 	@echo "Containers iniciados"
 
 stop:
 	docker stop api-whatsapp
-	docker stop mysql
 	@echo "Containers parados com sucesso"
 
 restart: stop start
