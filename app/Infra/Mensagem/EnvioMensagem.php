@@ -10,7 +10,7 @@ class EnvioMensagem
 {
     public function enviarMensagem(EnviarMensagemDTO $dados): array
     {
-        $url = 'https://graph.facebook.com/' . env('VERSION') . '/363037383565948/messages';
+        $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  env('WA_ID') .'/messages';
     
         $response = Http::withToken(env('TOKEN'))->post($url, [
             'messaging_product' => 'whatsapp',
