@@ -5,15 +5,22 @@ LABEL authors="valentinfalmeida@hotmail.com"
 ENV APP_KEY=base64:pZmRHnzKMWOXTeIFbcWVY/2vsGcNhUKg0KlYjHJZfOM=
 ENV JWT_SECRET=pZmRHnzKMWOXTeIFbcWVY/2vsGcNhUKg0KlYjHJZfOM
 ENV DB_CONNECTION=pgsql
+ENV DB_HOST=localhost
+ENV DB_PORT=5432
+ENV DB_DATABASE=identite-whatsapp
+ENV DB_USERNAME=identite_db_root
+ENV DB_PASSWORD=dbpassword
 ENV QUEUE_CONNECTION=database
-ENV WA_ID="3630373835648"
+ENV WA_ID=""
 ENV VERSION="v20.0"
-ENV TOKEN="EAAHj4cGaIBO3RYpnhpkMZBd7ZAXvrkD3JZBoF0WrHQZA1Fp2pgANTNiHbNmGQ38FaBoWXASjY5wLQIffTCpekoweBXZAuLwyoyaRJQsSVSgcvNOSBg4pPNJZBtpTaG1ih2ZCI2WhKWNJYMX341q9DeuRQHirGicu8LT9ZBZAPXiZCvWLaZCL31x8JXcSz4U4kiZCzjyAZDZD"
+ENV TOKEN=""
 
 RUN a2dissite 000-default.conf
 RUN a2enmod rewrite
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql pdo_mysql
 
 RUN apt-get update && apt-get install -y \
     zip \

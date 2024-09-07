@@ -40,3 +40,25 @@ docker exec -d api bash -c "php artisan db:seed"
 > url local para o projeto http://0.0.0.0:6000/
 
 > 💻 OBS: Configure o env colocando no host do banco o ip 10.2.0.3 no banco de dados
+
+> AWS 
+```
+docker build -t api-whatsapp -f Dockerfile .
+	
+docker run --restart always -p 6000:6000 -p 5172:5172 -v $(pwd):/app -it --name api-whatsapp -d api-whatsapp
+
+docker exec -it api-whatsapp /bin/bash
+
+	# Rodar de dentro do container
+
+	composer install
+	
+	php artisan key:generate
+
+	php artisan migrate
+
+	php artisan db:seed
+
+# Subir API dettached
+docker exec -d api-whatsapp bash -c "php artisan serve --host 0.0.0.0 --port=6000"
+```
