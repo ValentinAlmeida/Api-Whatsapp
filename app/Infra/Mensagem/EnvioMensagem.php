@@ -45,6 +45,24 @@ class EnvioMensagem
     
         return $response->json();
     }
+    public function enviarMensagemTemplate1(EnviarMensagemDTO $dados): array
+    {
+        $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  env('WA_ID') .'/messages';
+    
+        $response = Http::withToken(env('TOKEN'))->post($url, [
+            'messaging_product' => 'whatsapp',
+            'to' => $dados->telefone,
+            'type' => 'template',
+            'template' => [
+                'name' => 'identite_template_1',
+                'language' => [
+                    'code' => 'pt_BR'
+                ]
+            ]
+        ]);
+    
+        return $response->json();
+    }
 
     public function enviarVariasMensagens(array $dados): array
     {
@@ -53,6 +71,19 @@ class EnvioMensagem
         foreach ($dados as $dado) {
             Queue::push(function() use ($dado) {
                 $this->enviarMensagem($dado);
+            });
+        }
+    
+        return $retorno;
+    }
+
+    public function enviarVariasMensagensTemplate1(array $dados): array
+    {
+        $retorno = [];
+    
+        foreach ($dados as $dado) {
+            Queue::push(function() use ($dado) {
+                $this->enviarMensagemTemplate1($dado);
             });
         }
     
