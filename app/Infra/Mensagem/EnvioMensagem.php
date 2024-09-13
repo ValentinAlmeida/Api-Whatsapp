@@ -63,7 +63,19 @@ class EnvioMensagem
     
         return $response->json();
     }
-
+    
+    public function enviarVariasMensagensTemplate1(array $dados): array
+    {
+        $retorno = [];
+        
+        foreach ($dados as $dado) {
+            Queue::push(function() use ($dado) {
+                $this->enviarMensagemTemplate1($dado);
+            });
+        }
+        
+        return $retorno;
+    }
     public function enviarVariasMensagens(array $dados): array
     {
         $retorno = [];
@@ -71,19 +83,6 @@ class EnvioMensagem
         foreach ($dados as $dado) {
             Queue::push(function() use ($dado) {
                 $this->enviarMensagem($dado);
-            });
-        }
-    
-        return $retorno;
-    }
-
-    public function enviarVariasMensagensTemplate1(array $dados): array
-    {
-        $retorno = [];
-    
-        foreach ($dados as $dado) {
-            Queue::push(function() use ($dado) {
-                $this->enviarMensagemTemplate1($dado);
             });
         }
     
