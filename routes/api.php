@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\ContaController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\MensagemController;
 use App\Http\Controllers\WebhookController;
@@ -25,6 +26,13 @@ Route::prefix('/contato')->group(function () {
     Route::get('/', [ContatoController::class, 'buscar']);
     Route::get('/{contatoId}', [ContatoController::class, 'consultarPorId']);
     Route::post('/', [ContatoController::class, 'cadastrar']);
+});
+
+Route::prefix('/conta')->group(function () {
+    Route::get('/', [ContaController::class, 'buscar']);
+    Route::get('/{contaId}', [ContaController::class, 'consultarPorId']);
+    Route::post('/', [ContaController::class, 'cadastrar']);
+    Route::put('/{contaId}', [ContaController::class, 'editar']);
 });
 
 Route::prefix('/mensagem')->group(function () {
