@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Contratos\Servicos\ContaService;
 use App\Core\Contratos\Servicos\MensagemService as Service;
 use App\Core\Negocios\Mensagem as Negocio;
 use App\Http\Requests\BuscarMensagemRequisicao as BuscarRequisicao;
@@ -12,6 +13,7 @@ use App\Infra\Mensagem\EnvioMensagem;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Support\Serializers\MensagemSerializer as Serializer;
+use Illuminate\Support\Facades\App;
 
 class MensagemController extends Controller
 {
@@ -44,18 +46,14 @@ class MensagemController extends Controller
     public function enviarMensagem(EnviarMensagemRequisicao $request)
     {
         $envioMensagem = new EnvioMensagem();
-        return $envioMensagem->enviarMensagem($request->getData());
+
+        $contaService = App::make(ContaService::class);
+        return $envioMensagem->enviarMensagem($request->getData(), $contaService->encontrarPorId($request->getConta()));
     }
 
-    public function multiplasMensagens(EnviarVariasMensagemRequisicao $request)
+    public function multiplasMensagens(int $template_id, EnviarVariasMensagemRequisicao $request)
     {
         $envioMensagem = new EnvioMensagem();
-        return $envioMensagem->enviarVariasMensagens($request->getData());
-    }
-
-    public function multiplasMensagensTemplate1(EnviarVariasMensagemRequisicao $request)
-    {
-        $envioMensagem = new EnvioMensagem();
-        return $envioMensagem->enviarVariasMensagensTemplate1($request->getData());
+        return $envioMensagem->enviarVariasMensagens($request->getData(), $template_id);
     }
 }

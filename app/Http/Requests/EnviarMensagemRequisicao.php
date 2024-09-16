@@ -9,9 +9,9 @@ class EnviarMensagemRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            "nome" => 'required|string',
-            "cnpj" => 'required|string',
-            "telefone" => 'required|integer',
+            'nome', 'cnpj' => 'required|string',
+            'telefone' => 'required|integer',
+            'conta_id' => 'sometimes|integer|exists:conta,id',
         ];
     }
 
@@ -22,5 +22,10 @@ class EnviarMensagemRequisicao extends ApiRequisicao
             $this->input('nome'),
             $this->input('cnpj')
         );
+    }
+
+    public function getConta(): int
+    {
+        return $this->input('conta_id');
     }
 }

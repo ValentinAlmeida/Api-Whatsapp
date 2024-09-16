@@ -38,8 +38,7 @@ Route::prefix('/conta')->group(function () {
 Route::prefix('/mensagem')->group(function () {
     Route::get('/', [MensagemController::class, 'buscar']);
     Route::post('/enviar', [MensagemController::class, 'enviarMensagem']);
-    Route::post('/enviar/varias', [MensagemController::class, 'multiplasMensagens']);
-    Route::post('/enviar/varias/template/1', [MensagemController::class, 'multiplasMensagensTemplate1']);
+    Route::post('/enviar/varias/{templateId}', [MensagemController::class, 'multiplasMensagens']);
     Route::get('/{mensagemId}', [MensagemController::class, 'consultarPorId']);
     Route::post('/{contatoId}', [MensagemController::class, 'cadastrar']);
 });
