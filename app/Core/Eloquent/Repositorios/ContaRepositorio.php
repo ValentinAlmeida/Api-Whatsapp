@@ -74,4 +74,13 @@ class ContaRepositorio implements Contrato
 
         $entidade->save();
     }
+
+    public function deletar(int $id): void
+    {
+        $entidade = Model::find($id);
+
+        throw_if(!$entidade, Excecao::naoEncontrado());
+
+        $entidade->delete();
+    }
 }

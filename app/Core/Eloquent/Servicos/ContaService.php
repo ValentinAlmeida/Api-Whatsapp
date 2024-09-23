@@ -57,4 +57,9 @@ class ContaService implements Contrato
     {
         $this->repositorio->editar($id, $dados);
     }
+
+    public function deletar(int $id): void
+    {
+        $this->repositorio->deletar($id);
+    }
 }
