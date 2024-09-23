@@ -19,9 +19,11 @@ class Conta extends Model
 
     const TOKEN = 'token';
     const WA_ID = 'wa_id';
+    const NOME = 'nome';
 
     protected $fillable = [
         self::TOKEN,
         self::WA_ID,
+        self::NOME,
     ];
 }

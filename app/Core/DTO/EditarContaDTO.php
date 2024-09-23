@@ -7,6 +7,7 @@ class EditarContaDTO
     public function __construct(
         public ?string $token = null,
         public ?string $wa_id = null,
+        public ?string $nome = null,
     ) {
     }
 }

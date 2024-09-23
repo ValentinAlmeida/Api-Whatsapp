@@ -42,4 +42,9 @@ class ContaController extends Controller
     {
         return response(Serializer::parseEntidade($this->service->encontrarPorId($id)));
     }
+
+    public function deletar(int $id)
+    {
+        $this->service->deletar($id);
+    }
 }

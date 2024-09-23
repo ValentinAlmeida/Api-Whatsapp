@@ -12,6 +12,7 @@ class ContaSerializer
             'id' => $entidade->id,
             'wa_id' => $entidade->wa_id,
             'token' => $entidade->token,
+            'nome' => $entidade->nome,
         ];
     }
 }

@@ -33,6 +33,7 @@ Route::prefix('/conta')->group(function () {
     Route::get('/{contaId}', [ContaController::class, 'consultarPorId']);
     Route::post('/', [ContaController::class, 'cadastrar']);
     Route::put('/{contaId}', [ContaController::class, 'editar']);
+    Route::delete('/{contaId}', [ContaController::class, 'deletar']);
 });
 
 Route::prefix('/mensagem')->group(function () {

@@ -9,7 +9,7 @@ class EditarContaRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            "wa_id", "token" => 'sometimes|string',
+            "wa_id", "token", "nome" => 'sometimes|string',
         ];
     }
 
@@ -18,6 +18,7 @@ class EditarContaRequisicao extends ApiRequisicao
         return new EditarDTO(
             $this->input("wa_id"),
             $this->input("token"),
+            $this->input("nome"),
         );
     }
 }

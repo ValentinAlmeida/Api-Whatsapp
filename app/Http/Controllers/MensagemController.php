@@ -54,6 +54,7 @@ class MensagemController extends Controller
     public function multiplasMensagens(int $template_id, EnviarVariasMensagemRequisicao $request)
     {
         $envioMensagem = new EnvioMensagem();
+        
         return $envioMensagem->enviarVariasMensagens($request->getData(), $template_id);
     }
 }
