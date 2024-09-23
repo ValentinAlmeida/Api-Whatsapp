@@ -29,7 +29,7 @@ class Mensagem extends Entidade
         ?Contato $contato,
         ?DateTimeInterface $data_recuperacao,
         ?DateTimeInterface $data_envio
-    ) {
+    ): static {
         $instance = new static(new Identificador($id));
         $instance->telefone = $telefone;
         $instance->mensagem = $mensagem;

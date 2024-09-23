@@ -2,36 +2,26 @@
 
 namespace App\Providers;
 
-use App\Core\Contratos\Repositorios\ContatoRepositorio;
-use App\Core\Contratos\Repositorios\MensagemRepositorio;
-use App\Core\Contratos\Repositorios\UsuarioRepositorio;
-use App\Core\Contratos\Repositorios\WebhookRepositorio;
-use App\Core\Contratos\Servicos\AutenticacaoService;
-use App\Core\Contratos\Servicos\ContatoService;
-use App\Core\Contratos\Servicos\MensagemService;
-use App\Core\Contratos\Servicos\WebhookService;
-use App\Core\Eloquent\Repositorios\ContatoRepositorio as RepositoriosContatoRepositorio;
-use App\Core\Eloquent\Repositorios\MensagemRepositorio as RepositoriosMensagemRepositorio;
-use App\Core\Eloquent\Repositorios\UsuarioRepositorio as RepositoriosUsuarioRepositorio;
-use App\Core\Eloquent\Repositorios\WebhookRepositorio as RepositoriosWebhookRepositorio;
-use App\Core\Eloquent\Servicos\AutenticacaoService as ServicosAutenticacaoService;
-use App\Core\Eloquent\Servicos\ContatoService as ServicosContatoService;
-use App\Core\Eloquent\Servicos\MensagemService as ServicosMensagemService;
-use App\Core\Eloquent\Servicos\WebhookService as ServicosWebhookService;
+use App\Core\Contratos\Repositorios as ContratoRepositorio;
+use App\Core\Contratos\Servicos as ContratoServico;
+use App\Core\Eloquent\Repositorios as Repositorio;
+use App\Core\Eloquent\Servicos as Servico;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     public $singletons = [
-        UsuarioRepositorio::class => RepositoriosUsuarioRepositorio::class,
-        WebhookRepositorio::class => RepositoriosWebhookRepositorio::class,
-        ContatoRepositorio::class => RepositoriosContatoRepositorio::class,
-        MensagemRepositorio::class => RepositoriosMensagemRepositorio::class,
+        ContratoRepositorio\UsuarioRepositorio::class => Repositorio\UsuarioRepositorio::class,
+        ContratoRepositorio\WebhookRepositorio::class => Repositorio\WebhookRepositorio::class,
+        ContratoRepositorio\ContatoRepositorio::class => Repositorio\ContatoRepositorio::class,
+        ContratoRepositorio\MensagemRepositorio::class => Repositorio\MensagemRepositorio::class,
+        ContratoRepositorio\ContaRepositorio::class => Repositorio\ContaRepositorio::class,
 
-        AutenticacaoService::class => ServicosAutenticacaoService::class,
-        WebhookService::class => ServicosWebhookService::class,
-        ContatoService::class => ServicosContatoService::class,
-        MensagemService::class => ServicosMensagemService::class,
+        ContratoServico\AutenticacaoService::class => Servico\AutenticacaoService::class,
+        ContratoServico\WebhookService::class => Servico\WebhookService::class,
+        ContratoServico\ContatoService::class => Servico\ContatoService::class,
+        ContratoServico\MensagemService::class => Servico\MensagemService::class,
+        ContratoServico\ContaService::class => Servico\ContaService::class,
     ];
     /**
      * Register any application services.

@@ -6,8 +6,8 @@ class EnviarMensagemDTO
 {
     public function __construct(
         public int $telefone,
-        public string $nome,
-        public string $cnpj
+        public ?string $nome,
+        public ?string $cnpj
     ) {
     }
 }
