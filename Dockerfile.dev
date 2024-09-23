@@ -2,9 +2,6 @@ FROM php:8.2-apache
 
 LABEL authors="valentinfalmeida@hotmail.com"
 
-ENV APP_KEY=base64:pZmRHnzKMWOXTeIFbcWVY/2vsGcNhUKg0KlYjHJZfOM=
-ENV JWT_SECRET=pZmRHnzKMWOXTeIFbcWVY/2vsGcNhUKg0KlYjHJZfOM
-ENV DB_CONNECTION=pgsql
 ENV QUEUE_CONNECTION=database
 ENV APP_URL=http://0.0.0.0
 
