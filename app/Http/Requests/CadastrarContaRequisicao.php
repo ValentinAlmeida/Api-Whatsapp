@@ -9,7 +9,7 @@ class CadastrarContaRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            "wa_id", "token" => 'required|string',
+            "wa_id", "token", "nome" => 'required|string',
         ];
     }
 
@@ -18,6 +18,7 @@ class CadastrarContaRequisicao extends ApiRequisicao
         return new CadastrarDTO(
             $this->input("token"),
             $this->input("wa_id"),
+            $this->input("nome"),
         );
     }
 }

@@ -28,6 +28,7 @@ class ContaService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->token(),
             $entidade->wa_id(),
+            $entidade->nome(),
         );
     }
 
@@ -39,6 +40,7 @@ class ContaService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->token(),
             $entidade->wa_id(),
+            $entidade->nome(),
         );
     }
 
@@ -50,6 +52,7 @@ class ContaService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->token(),
             $entidade->wa_id(),
+            $entidade->nome(),
         ), $entidades);
     }
 

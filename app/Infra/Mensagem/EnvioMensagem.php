@@ -15,7 +15,7 @@ class EnvioMensagem
     public function enviarMensagem(EnviarMensagemDTO $dados, Conta $conta): array
     {
         $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  $conta->wa_id .'/messages';
-    
+
         $response = Http::withToken($conta->token)->post($url, [
             'messaging_product' => 'whatsapp',
             'to' => $dados->telefone,
@@ -46,7 +46,7 @@ class EnvioMensagem
                 ]
             ]
         ]);
-    
+
         return $response->json();
     }
     public function enviarMensagemTemplate1(EnviarMensagemDTO $dados, Conta $conta): array

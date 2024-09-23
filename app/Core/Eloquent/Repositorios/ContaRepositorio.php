@@ -17,12 +17,14 @@ class ContaRepositorio implements Contrato
         $entidade = Model::create([
             Model::TOKEN => $dados->token,
             Model::WA_ID => $dados->wa_id,
+            Model::NOME => $dados->nome,
         ]);
 
         return Entidade::build(
             $entidade->id,
             $entidade->token,
             $entidade->wa_id,
+            $entidade->nome,
         );
     }
 
@@ -38,6 +40,10 @@ class ContaRepositorio implements Contrato
             $query->where(Model::WA_ID, $filtro->waId);
         }
 
+        if (!empty($filtro->nome)) {
+            $query->where(Model::NOME, $filtro->nome);
+        }
+
         $entidades = $query->get();
 
         return $entidades->map(function ($entidade) {
@@ -45,6 +51,7 @@ class ContaRepositorio implements Contrato
                 $entidade->id,
                 $entidade->token,
                 $entidade->wa_id,
+                $entidade->nome,
             );
         })->toArray();
     }
@@ -60,6 +67,7 @@ class ContaRepositorio implements Contrato
             $entidade->id,
             $entidade->token,
             $entidade->wa_id,
+            $entidade->nome,
         );
     }
 
@@ -71,6 +79,7 @@ class ContaRepositorio implements Contrato
 
         $entidade->wa_id = $dados->wa_id ?? $entidade->wa_id;
         $entidade->token = $dados->token ?? $entidade->token;
+        $entidade->nome = $dados->nome ?? $entidade->nome;
 
         $entidade->save();
     }

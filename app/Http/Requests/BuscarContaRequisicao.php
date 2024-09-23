@@ -9,7 +9,7 @@ class BuscarContaRequisicao extends ApiRequisicao
     public function rules()
     {
         return [
-            "wa_id", "token" => 'sometimes|string'
+            "wa_id", "token", "nome" => 'sometimes|string'
         ];
     }
 
@@ -19,6 +19,7 @@ class BuscarContaRequisicao extends ApiRequisicao
         
         $filtro->waId = $this->input("wa_id");
         $filtro->token = $this->input("token");
+        $filtro->nome = $this->input("nome");
 
         return $filtro;
     }
