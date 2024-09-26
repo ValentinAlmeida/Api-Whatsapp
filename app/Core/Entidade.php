@@ -6,7 +6,7 @@ use App\Core\VO\Identificador;
 
 abstract class Entidade
 {
-    public function __construct(private readonly Identificador $identificador)
+    public function __construct(private readonly ?Identificador $identificador)
     {}
 
     public function equals(Object $outro): bool

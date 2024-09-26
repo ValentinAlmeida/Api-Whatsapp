@@ -8,6 +8,7 @@ use App\Core\Entidade;
 use App\Core\Negocios\Conta;
 use App\Core\Propriedade\LogPropriedade;
 use App\Core\VO\Identificador;
+use DateTimeInterface;
 
 class Log extends Entidade
 {
@@ -63,6 +64,11 @@ class Log extends Entidade
     public function getConta(): Conta
     {
         return $this->props->conta;
+    }
+
+    public function getDataCadastro(): DateTimeInterface
+    {
+        return $this->props->data_cadastro;
     }
 
     public function getContaRef(): int

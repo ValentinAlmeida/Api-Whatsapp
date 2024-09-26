@@ -3,6 +3,8 @@
 namespace App\Infra\Mensagem;
 
 use App\Core\Contratos\Servicos\ContaService;
+use App\Core\Contratos\Servicos\LogService;
+use App\Core\DTO\CadastrarLogDTO;
 use App\Core\DTO\EnviarMensagemDTO;
 use App\Core\Filtros\ContaFiltros;
 use App\Core\Negocios\Conta;
@@ -47,6 +49,8 @@ class EnvioMensagem
             ]
         ]);
 
+        $this->criarLog($response->json(), $conta);
+
         return $response->json();
     }
     public function enviarMensagemTemplate1(EnviarMensagemDTO $dados, Conta $conta): array
@@ -64,6 +68,8 @@ class EnvioMensagem
                 ]
             ]
         ]);
+
+        $this->criarLog($response->json(), $conta);
     
         return $response->json();
     }
@@ -112,9 +118,9 @@ class EnvioMensagem
 
                 if($template_id == 1)
                 {
-                    Queue::push(function() use ($mensagem, $conta) {
+                    // Queue::push(function() use ($mensagem, $conta) {
                         $this->enviarMensagem($mensagem, $conta);
-                    });
+                    // });
                 }
 
                 if($template_id == 2)
@@ -129,5 +135,22 @@ class EnvioMensagem
         }
 
         return $indiceMensagem;
+    }
+
+    private function criarLog(array $mensagens, Conta $conta): void
+    {
+        if (array_key_exists('error', $mensagens)) {
+            $error = $mensagens['error'];
+            
+            if (array_key_exists('message', $error)) {
+                $logDTO = new CadastrarLogDTO(
+                    $error['message'],
+                    $conta->id
+                );
+    
+                $logService = App::make(LogService::class);
+                $logService->cadastrar($logDTO);
+            }
+        }
     }
 }

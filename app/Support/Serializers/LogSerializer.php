@@ -12,6 +12,7 @@ class LogSerializer
             'id' => (int)$entidade->getIdentificador()->valor(),
             'mensagem' => $entidade->getMensagem(),
             'conta' => $entidade->getConta(),
+            'data_cadastro' => $entidade->getDataCadastro(),
         ];
     }
 }
