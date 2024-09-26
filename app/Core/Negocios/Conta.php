@@ -2,8 +2,6 @@
 
 namespace App\Core\Negocios;
 
-use DateTimeInterface;
-
 class Conta
 {
     public function __construct(

@@ -9,7 +9,6 @@ use App\Core\DTO\EditarContaDTO;
 use App\Core\Entidades\Conta as Entidade;
 use App\Core\Filtros\ContaFiltros as Filtro;
 use App\Core\Negocios\Conta as Negocio;
-use Carbon\Carbon;
 
 class ContaService implements Contrato
 {

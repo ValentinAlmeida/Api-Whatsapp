@@ -16,12 +16,14 @@ class AppServiceProvider extends ServiceProvider
         ContratoRepositorio\ContatoRepositorio::class => Repositorio\ContatoRepositorio::class,
         ContratoRepositorio\MensagemRepositorio::class => Repositorio\MensagemRepositorio::class,
         ContratoRepositorio\ContaRepositorio::class => Repositorio\ContaRepositorio::class,
+        ContratoRepositorio\LogRepositorio::class => Repositorio\LogRepositorio::class,
 
         ContratoServico\AutenticacaoService::class => Servico\AutenticacaoService::class,
         ContratoServico\WebhookService::class => Servico\WebhookService::class,
         ContratoServico\ContatoService::class => Servico\ContatoService::class,
         ContratoServico\MensagemService::class => Servico\MensagemService::class,
         ContratoServico\ContaService::class => Servico\ContaService::class,
+        ContratoServico\LogService::class => Servico\LogService::class,
     ];
     /**
      * Register any application services.

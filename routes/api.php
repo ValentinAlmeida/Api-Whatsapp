@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutenticacaoController;
 use App\Http\Controllers\ContaController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\MensagemController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,10 @@ Route::prefix('/conta')->group(function () {
     Route::get('/{contaId}', [ContaController::class, 'consultarPorId']);
     Route::post('/', [ContaController::class, 'cadastrar']);
     Route::put('/{contaId}', [ContaController::class, 'editar']);
+});
+
+Route::prefix('/log')->group(function () {
+    Route::get('/', [LogController::class, 'buscar']);
 });
 
 Route::prefix('/mensagem')->group(function () {
