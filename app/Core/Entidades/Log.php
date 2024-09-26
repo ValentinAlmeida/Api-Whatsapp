@@ -5,7 +5,6 @@ namespace App\Core\Entidades;
 use App\Core\DTO\CadastrarLogDTO;
 use App\Core\DTO\RestaurarLogDTO;
 use App\Core\Entidade;
-use App\Core\Negocios\Conta;
 use App\Core\Propriedade\LogPropriedade;
 use App\Core\VO\Identificador;
 use DateTimeInterface;

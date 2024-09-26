@@ -2,7 +2,7 @@
 
 namespace App\Core\Propriedade;
 
-use App\Core\Negocios\Conta;
+use App\Core\Entidades\Conta;
 use DateTimeInterface;
 
 class LogPropriedade
