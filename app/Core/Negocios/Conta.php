@@ -8,6 +8,7 @@ class Conta
         public readonly int $id,
         public readonly string $token,
         public readonly string $wa_id,
+        public readonly string $nome,
     ){
     }
 }

@@ -16,4 +16,6 @@ interface ContaRepositorio
     public function buscar(Filtro $dados): array;
 
     public function editar(int $id, EditarDTO $dados): void;
+    
+    public function deletar(int $id): void;
 }

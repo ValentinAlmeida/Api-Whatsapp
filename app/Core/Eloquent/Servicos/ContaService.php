@@ -27,6 +27,7 @@ class ContaService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->token(),
             $entidade->wa_id(),
+            $entidade->nome(),
         );
     }
 
@@ -38,6 +39,7 @@ class ContaService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->token(),
             $entidade->wa_id(),
+            $entidade->nome(),
         );
     }
 
@@ -49,11 +51,17 @@ class ContaService implements Contrato
             intval($entidade->getIdentificador()->valor()),
             $entidade->token(),
             $entidade->wa_id(),
+            $entidade->nome(),
         ), $entidades);
     }
 
     public function editar(int $id, EditarContaDTO $dados): void
     {
         $this->repositorio->editar($id, $dados);
+    }
+
+    public function deletar(int $id): void
+    {
+        $this->repositorio->deletar($id);
     }
 }
