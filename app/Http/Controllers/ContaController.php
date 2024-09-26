@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Core\Contratos\Servicos\ContaService as Service;
-use App\Core\Negocios\Conta as Negocio;
+use App\Core\Entidades\Conta as Entidade;
 use App\Http\Requests\BuscarContaRequisicao as BuscarRequisicao;
 use App\Http\Requests\CadastrarContaRequisicao as CadastrarRequisicao;
 use App\Http\Requests\EditarContaRequisicao as EditarRequisicao;
@@ -33,7 +33,7 @@ class ContaController extends Controller
     {
         $entidades = $this->service->buscar($request->getData());
 
-        return response(array_map(function (Negocio $entidade) {
+        return response(array_map(function (Entidade $entidade) {
             return Serializer::parseEntidade($entidade);
         }, $entidades));
     }

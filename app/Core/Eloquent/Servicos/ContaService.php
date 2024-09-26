@@ -8,7 +8,6 @@ use App\Core\DTO\CadastrarContaDTO as CadastrarDTO;
 use App\Core\DTO\EditarContaDTO;
 use App\Core\Entidades\Conta as Entidade;
 use App\Core\Filtros\ContaFiltros as Filtro;
-use App\Core\Negocios\Conta as Negocio;
 
 class ContaService implements Contrato
 {
@@ -19,45 +18,40 @@ class ContaService implements Contrato
     {
     }
 
-    public function cadastrar(CadastrarDTO $dados): Negocio
+    public function cadastrar(CadastrarDTO $dados): Entidade
     {
-        $entidade = $this->repositorio->criar($dados);
+        $entidade = Entidade::create($dados);
 
-        return new Negocio(
-            intval($entidade->getIdentificador()->valor()),
-            $entidade->token(),
-            $entidade->wa_id(),
-            $entidade->nome(),
-        );
+        return $this->repositorio->criar($entidade);
     }
 
-    public function encontrarPorId(int $id): Negocio
+    public function encontrarPorId(int $id): Entidade
     {
-        $entidade = $this->repositorio->encontrarPorId($id);
-
-        return new Negocio(
-            intval($entidade->getIdentificador()->valor()),
-            $entidade->token(),
-            $entidade->wa_id(),
-            $entidade->nome(),
-        );
+        return $this->repositorio->encontrarPorId($id);
     }
 
     public function buscar(Filtro $dados): array
     {
         $entidades = $this->repositorio->buscar($dados);
         
-        return array_map(fn(Entidade $entidade) => new Negocio(
-            intval($entidade->getIdentificador()->valor()),
-            $entidade->token(),
-            $entidade->wa_id(),
-            $entidade->nome(),
-        ), $entidades);
+        return array_map(function(Entidade $entidade): Entidade{
+            return $entidade;
+        }, $entidades);
     }
 
     public function editar(int $id, EditarContaDTO $dados): void
     {
-        $this->repositorio->editar($id, $dados);
+        $entidade = $this->encontrarPorId($id);
+
+        $cadastrarDTO = new CadastrarDTO(
+            $dados->token ?? $entidade->getToken(),
+            $dados->wa_id ?? $entidade->getWaId(),
+            $dados->nome ?? $entidade->getNome(),
+        );
+
+        $nova_entidade = Entidade::create($cadastrarDTO);
+
+        $this->repositorio->editar((int)$entidade->getIdentificador()->valor(), $nova_entidade);
     }
 
     public function deletar(int $id): void

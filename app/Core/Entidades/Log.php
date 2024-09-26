@@ -17,7 +17,8 @@ class Log extends Entidade
     private function __construct(
         LogPropriedade $props,
         ?Identificador $identificador = null
-    ) {
+    )
+    {
         parent::__construct(
             $identificador,
         );

@@ -2,41 +2,70 @@
 
 namespace App\Core\Entidades;
 
+use App\Core\DTO\CadastrarContaDTO;
+use App\Core\DTO\RestaurarContaDTO;
 use App\Core\Entidade;
+use App\Core\Propriedade\ContaPropriedade;
 use App\Core\VO\Identificador;
 
 class Conta extends Entidade
 {
-    private string $token;
+    private ContaPropriedade $props;
 
-    private string $waId;
-    private string $nome;
-
-    public static function build(
-        int $id,
-        string $token,
-        string $wa_id,
-        string $nome,
-    ): static {
-        $instance = new static(new Identificador($id));
-        $instance->token = $token;
-        $instance->waId = $wa_id;
-        $instance->nome = $nome;
-
-        return $instance;
-    }
-    public function token(): string
+    private function __construct(
+    ContaPropriedade $props,
+    ?Identificador $identificador = null
+    )
     {
-        return $this->token;
+        parent::__construct(
+            $identificador,
+        );
+
+        $this->props = $props;
     }
 
-    public function wa_id(): string
-    {
-        return $this->waId;
+    public static function create(
+        CadastrarContaDTO $cadastrarContaDTO
+    ): static{
+        $props = new ContaPropriedade();
+
+        $props->nome = $cadastrarContaDTO->nome;
+        $props->token = $cadastrarContaDTO->token;
+        $props->waId = $cadastrarContaDTO->wa_id;
+
+        return new static(
+            $props
+        );
     }
 
-    public function nome(): string
+    public static function restore(
+        RestaurarContaDTO $restaurarContaDTO,
+        int $id
+    ): static{
+        $props = new ContaPropriedade();
+
+        $props->nome = $restaurarContaDTO->nome;
+        $props->token = $restaurarContaDTO->token;
+        $props->waId = $restaurarContaDTO->wa_id;
+
+        return new static(
+            $props,
+            Identificador::create($id)
+        );
+    }
+
+    public function getToken(): string
     {
-        return $this->nome;
+        return $this->props->token;
+    }
+
+    public function getNome(): string
+    {
+        return $this->props->nome;
+    }
+
+    public function getWaId(): string
+    {
+        return $this->props->waId;
     }
 }

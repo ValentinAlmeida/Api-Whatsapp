@@ -2,17 +2,17 @@
 
 namespace App\Support\Serializers;
 
-use App\Core\Negocios\Conta as Negocio;
+use App\Core\Entidades\Conta;
 
 class ContaSerializer
 {
-    public static function parseEntidade(Negocio $entidade)
+    public static function parseEntidade(Conta $entidade)
     {
         return [
-            'id' => $entidade->id,
-            'wa_id' => $entidade->wa_id,
-            'token' => $entidade->token,
-            'nome' => $entidade->nome,
+            'id' => (int)$entidade->getIdentificador()->valor(),
+            'wa_id' => $entidade->getWaId(),
+            'token' => $entidade->getToken(),
+            'nome' => $entidade->getNome(),
         ];
     }
 }

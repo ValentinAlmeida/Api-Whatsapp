@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('token');
             $table->string('wa_id');
-            $table->string('nome');
+            $table->string('nome')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
