@@ -6,8 +6,8 @@ use App\Core\Contratos\Servicos\ContaService;
 use App\Core\Contratos\Servicos\LogService;
 use App\Core\DTO\CadastrarLogDTO;
 use App\Core\DTO\EnviarMensagemDTO;
+use App\Core\Entidades\Conta;
 use App\Core\Filtros\ContaFiltros;
-use App\Core\Negocios\Conta;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
@@ -16,9 +16,9 @@ class EnvioMensagem
 {
     public function enviarMensagem(EnviarMensagemDTO $dados, Conta $conta): array
     {
-        $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  $conta->wa_id .'/messages';
+        $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  $conta->getWaId() .'/messages';
 
-        $response = Http::withToken($conta->token)->post($url, [
+        $response = Http::withToken($conta->getToken())->post($url, [
             'messaging_product' => 'whatsapp',
             'to' => $dados->telefone,
             'type' => 'template',
@@ -55,9 +55,9 @@ class EnvioMensagem
     }
     public function enviarMensagemTemplate1(EnviarMensagemDTO $dados, Conta $conta): array
     {
-        $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  $conta->wa_id .'/messages';
+        $url = 'https://graph.facebook.com/' . env('VERSION') . '/' .  $conta->getWaId() .'/messages';
     
-        $response = Http::withToken($conta->token)->post($url, [
+        $response = Http::withToken($conta->getToken())->post($url, [
             'messaging_product' => 'whatsapp',
             'to' => $dados->telefone,
             'type' => 'template',
@@ -118,9 +118,9 @@ class EnvioMensagem
 
                 if($template_id == 1)
                 {
-                    // Queue::push(function() use ($mensagem, $conta) {
+                    Queue::push(function() use ($mensagem, $conta) {
                         $this->enviarMensagem($mensagem, $conta);
-                    // });
+                    });
                 }
 
                 if($template_id == 2)
@@ -145,7 +145,7 @@ class EnvioMensagem
             if (array_key_exists('message', $error)) {
                 $logDTO = new CadastrarLogDTO(
                     $error['message'],
-                    $conta->id
+                    (int)$conta->getIdentificador()->valor()
                 );
     
                 $logService = App::make(LogService::class);
