@@ -4,25 +4,23 @@ namespace App\Core\Entidades;
 
 use App\Core\DTO\CadastrarLogDTO;
 use App\Core\DTO\RestaurarLogDTO;
-use App\Core\Entidade;
 use App\Core\Propriedade\LogPropriedade;
 use App\Core\VO\Identificador;
 use DateTimeInterface;
 
-class Log extends Entidade
+class Log
 {
     private LogPropriedade $props;
 
+    private ?int $id;
+
     private function __construct(
         LogPropriedade $props,
-        ?Identificador $identificador = null
+        ?int $id = null
     )
     {
-        parent::__construct(
-            $identificador,
-        );
-
         $this->props = $props;
+        $this->id = $id;
     }
 
     public static function create(
@@ -52,7 +50,7 @@ class Log extends Entidade
 
         return new static(
             $props,
-            Identificador::create($id)
+            $id
         );
     }
 
@@ -79,5 +77,10 @@ class Log extends Entidade
     public function setConta(Conta $conta): void
     {
         $this->props->conta = $conta;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

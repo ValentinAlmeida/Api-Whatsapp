@@ -9,7 +9,7 @@ class LogSerializer
     public static function parseEntidade(Log $entidade)
     {
         return [
-            'id' => (int)$entidade->getIdentificador()->valor(),
+            'id' => $entidade->getId(),
             'mensagem' => $entidade->getMensagem(),
             'conta' => $entidade->getConta(),
             'data_cadastro' => $entidade->getDataCadastro(),

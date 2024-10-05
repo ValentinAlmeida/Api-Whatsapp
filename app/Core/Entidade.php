@@ -6,7 +6,7 @@ use App\Core\VO\Identificador;
 
 abstract class Entidade
 {
-    public function __construct(private readonly ?Identificador $identificador)
+    public function __construct(private ?Identificador $identificador)
     {}
 
     public function equals(Object $outro): bool
@@ -18,7 +18,7 @@ abstract class Entidade
         return $this->identificador->equals($outro->getIdentificador());
     }
 
-    public function getIdentificador(): Identificador
+    public function getIdentificador(): ?Identificador
     {
         return $this->identificador;
     }
